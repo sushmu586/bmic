@@ -1,1 +1,123 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result {
+    margin-top: 20px;
+}
+
+#bmiValue {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#bmiCategory {
+    font-size: 18px;
+    color: #555;
+}
+</style>
+<body>
+    <div class="container">
+        <h1>BMI Calculator</h1>
+        <form id="bmiForm">
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" name="weight" required>
+            
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" name="height" required>
+            
+            <button type="submit">Calculate BMI</button>
+        </form>
+        <div id="result">
+            <p id="bmiValue"></p>
+            <p id="bmiCategory"></p>
+        </div>
+    </div>
+    <script>document.getElementById('bmiForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+    
+        // Get weight and height values from input fields
+        const weight = parseFloat(document.getElementById('weight').value);
+        const height = parseFloat(document.getElementById('height').value) / 100; // Convert height to meters
+    
+        if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+            alert('Please enter valid positive numbers for weight and height.');
+            return;
+        }
+    
+        // Calculate BMI
+        const bmi = weight / (height * height);
+        
+        // Determine BMI category
+        let category = '';
+        if (bmi < 18.5) {
+            category = 'Underweight';
+        } else if (bmi < 24.9) {
+            category = 'Normal weight';
+        } else if (bmi < 29.9) {
+            category = 'Overweight';
+        } else {
+            category = 'Obesity';
+        }
+    
+        // Display results
+        document.getElementById('bmiValue').textContent = `BMI: ${bmi.toFixed(1)}`;
+        document.getElementById('bmiCategory').textContent = `Category: ${category}`;
+    });
+    </script>
+</body>
+</html>
